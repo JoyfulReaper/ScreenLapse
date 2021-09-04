@@ -25,7 +25,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace ScreenLapseLib
+namespace ScreenLapseLib.Helpers
 {
     public static class ScreenHelper
     {

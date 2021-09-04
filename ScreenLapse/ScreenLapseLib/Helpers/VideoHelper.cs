@@ -29,7 +29,7 @@ namespace ScreenLapseLib.Helpers
     {
         public static bool CreateVideoFromImages(string path, string filename, string inputPath, int frameRepeat = 3, int frameRate = 30)
         {
-            var inputImages = Directory.GetFiles(inputPath);
+            var inputImages = Directory.GetFiles(inputPath, "*png");
             var imageinfo = new List<ImageInfo>();
 
             foreach (var image in inputImages)
@@ -41,6 +41,11 @@ namespace ScreenLapseLib.Helpers
             }
 
             return FFMpeg.JoinImageSequence($"{path}{Path.DirectorySeparatorChar}{filename}.mp4", frameRate, imageinfo.ToArray());
+        }
+
+        public static void JoinVideos(string path, string outputFile, string inputPath)
+        {
+            var inputVideos = Directory.GetFiles(inputPath);
         }
     }
 }
