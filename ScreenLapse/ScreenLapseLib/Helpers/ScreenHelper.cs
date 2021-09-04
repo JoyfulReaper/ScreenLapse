@@ -61,14 +61,16 @@ namespace ScreenLapseLib.Helpers
 
         public static void TakeAndSave(string path, string fileName, Rectangle bounds, ImageFormat imageFormat)
         {
-            using var image = CopyFromScreen(bounds);
-
-            if (!Directory.Exists(path))
+            using (var image = CopyFromScreen(bounds))
             {
-                Directory.CreateDirectory(path);
-            }
 
-            image.Save(path + fileName, imageFormat);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                image.Save(path + fileName, imageFormat);
+            }
         }
     }
 }

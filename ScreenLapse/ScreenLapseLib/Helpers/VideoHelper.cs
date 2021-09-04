@@ -39,7 +39,6 @@ namespace ScreenLapseLib.Helpers
                     imageinfo.Add(ImageInfo.FromPath(image));
                 }
             }
-
             return FFMpeg.JoinImageSequence($"{path}{Path.DirectorySeparatorChar}{filename}.mp4", frameRate, imageinfo.ToArray());
         }
 

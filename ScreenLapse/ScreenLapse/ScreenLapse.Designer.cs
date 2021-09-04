@@ -38,10 +38,13 @@ namespace ScreenLapse
             this.txtRepeatFrames = new System.Windows.Forms.TextBox();
             this.lblFrameRate = new System.Windows.Forms.Label();
             this.txtFrameRate = new System.Windows.Forms.TextBox();
+            this.chkDeleteImages = new System.Windows.Forms.CheckBox();
+            this.btnProcess = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnStart
             // 
+            this.btnStart.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStart.Location = new System.Drawing.Point(12, 255);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(102, 55);
@@ -53,7 +56,8 @@ namespace ScreenLapse
             // btnStop
             // 
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(295, 255);
+            this.btnStop.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnStop.Location = new System.Drawing.Point(294, 255);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(102, 55);
             this.btnStop.TabIndex = 5;
@@ -123,12 +127,38 @@ namespace ScreenLapse
             this.txtFrameRate.TabIndex = 3;
             this.txtFrameRate.Text = "32";
             // 
+            // chkDeleteImages
+            // 
+            this.chkDeleteImages.AutoSize = true;
+            this.chkDeleteImages.Checked = true;
+            this.chkDeleteImages.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDeleteImages.Location = new System.Drawing.Point(12, 215);
+            this.chkDeleteImages.Name = "chkDeleteImages";
+            this.chkDeleteImages.Size = new System.Drawing.Size(213, 34);
+            this.chkDeleteImages.TabIndex = 9;
+            this.chkDeleteImages.Text = "Delete Screenshots";
+            this.chkDeleteImages.UseVisualStyleBackColor = true;
+            // 
+            // btnProcess
+            // 
+            this.btnProcess.Enabled = false;
+            this.btnProcess.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnProcess.Location = new System.Drawing.Point(153, 255);
+            this.btnProcess.Name = "btnProcess";
+            this.btnProcess.Size = new System.Drawing.Size(102, 55);
+            this.btnProcess.TabIndex = 10;
+            this.btnProcess.Text = "Create Video";
+            this.btnProcess.UseVisualStyleBackColor = true;
+            this.btnProcess.Click += new System.EventHandler(this.btnProcess_Click);
+            // 
             // ScreenLapse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(409, 322);
+            this.Controls.Add(this.btnProcess);
+            this.Controls.Add(this.chkDeleteImages);
             this.Controls.Add(this.lblFrameRate);
             this.Controls.Add(this.txtFrameRate);
             this.Controls.Add(this.lblRepeatFrames);
@@ -159,6 +189,8 @@ namespace ScreenLapse
         private System.Windows.Forms.TextBox txtRepeatFrames;
         private System.Windows.Forms.Label lblFrameRate;
         private System.Windows.Forms.TextBox txtFrameRate;
+        private System.Windows.Forms.CheckBox chkDeleteImages;
+        private System.Windows.Forms.Button btnProcess;
     }
 }
 
