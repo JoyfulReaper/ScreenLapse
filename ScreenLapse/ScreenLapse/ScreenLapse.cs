@@ -26,9 +26,6 @@ namespace ScreenLapse
 
         private async void btnStart_Click(object sender, EventArgs e)
         {
-            btnStart.Enabled = false;
-            _started = true;
-
             string errorMessage = string.Empty;
 
             if(!ValidateInput(out errorMessage))
@@ -37,7 +34,11 @@ namespace ScreenLapse
                 return;
             }
 
-            while(_started == true)
+            btnStart.Enabled = false;
+            btnStop.Enabled = true;
+            _started = true;
+
+            while (_started == true)
             {
                 var bounds = new Rectangle();
                 bounds = Screen.PrimaryScreen.Bounds;
@@ -47,11 +48,13 @@ namespace ScreenLapse
 
             VideoHelper.CreateVideoFromImages(".\\images", "outfile", ".\\images", _frameRepeat, _frameRate);
             MessageBox.Show("Done Proccessing!");
+            btnStart.Enabled = true;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            btnStart.Enabled = true;
+            btnStop.Enabled = false;
+
             _started = false;
         }
 
