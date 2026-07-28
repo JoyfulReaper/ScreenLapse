@@ -1,6 +1,6 @@
 ﻿/*
 MIT License
-Copyright(c) 2021 Kyle Givler
+Copyright(c) 2021, 2026 Kyle Givler
 https://github.com/JoyfulReaper
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,13 +19,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace ScreenLapseLib.Helpers
+namespace ScreenLapse.Lib.Helpers
 {
     public static class ScreenHelper
     {
