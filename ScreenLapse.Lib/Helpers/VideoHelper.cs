@@ -47,6 +47,11 @@ public static class VideoHelper
                 $"No screenshots found in '{inputPath}'.");
         }
 
+        if (!Directory.Exists(outputPath))
+        {
+            Directory.CreateDirectory(outputPath);
+        }
+
         var outputFile = Path.Combine(outputPath, $"{filename}.mp4");
 
         return FFMpeg.JoinImageSequence(

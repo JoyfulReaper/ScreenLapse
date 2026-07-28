@@ -1,4 +1,5 @@
 ﻿using ScreenLapse.Lib.Helpers;
+using ScreenLapse.Services;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -14,14 +15,20 @@ namespace ScreenLapse
         private double _delay;
         private int _frameRate;
         private int _frameRepeat;
-        private string _inputPath = ".\\images\\";
-        private string _outputPath = ".\\images\\";
+
+        private ScreenLapseService _screenLapseService;
+        private ScreenLapseOptions _options;
 
         public ScreenLapse()
         {
             InitializeComponent();
 
+            _screenLapseService = new();
+            _options = new ScreenLapseOptions();
+
             CheckIfProccessIsAllowedAndUpdate();
+
+
         }
 
         private async void btnStart_Click(object sender, EventArgs e)
@@ -43,7 +50,7 @@ namespace ScreenLapse
             {
                 var bounds = new Rectangle();
                 bounds = Screen.PrimaryScreen.Bounds;
-                ScreenHelper.TakeAndSave(_outputPath, $"{DateTime.Now.Ticks}-shot.png", bounds, ImageFormat.Png);
+                ScreenHelper.TakeAndSave(_options.CapturePath, $"{DateTime.Now.Ticks}-shot.png", bounds, ImageFormat.Png);
                 await Task.Delay((int)(_delay * 1000));
             }
         }
@@ -68,12 +75,12 @@ namespace ScreenLapse
                 return;
             }
 
-            VideoHelper.CreateVideoFromImages(_outputPath, "outfile", _inputPath, _frameRepeat, _frameRate);
+            VideoHelper.CreateVideoFromImages(_options.OutputPath, "outfile", _options.CapturePath, _frameRepeat, _frameRate);
 
             if (chkDeleteImages.Checked)
             {
                 await Task.Delay(1000 * 10);
-                var files = Directory.GetFiles(_outputPath, "*-shot.png");
+                var files = Directory.GetFiles(_options.CapturePath, "*-shot.png");
                 foreach (var file in files)
                 {
                     File.Delete(file);
@@ -114,7 +121,7 @@ namespace ScreenLapse
 
         private void CheckIfProccessIsAllowedAndUpdate()
         {
-            if (Directory.Exists(_outputPath) && Directory.GetFiles(_outputPath).Length > 0)
+            if (Directory.Exists(_options.CapturePath) && Directory.GetFiles(_options.CapturePath).Length > 0)
             {
                 btnProcess.Enabled = true;
             }
