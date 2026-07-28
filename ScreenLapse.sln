@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenLapse", "ScreenLapse\ScreenLapse.csproj", "{58B0DDFC-4866-4335-8E1E-0FB5E4DA78E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenLapseLib", "ScreenLapse.Lib\ScreenLapseLib.csproj", "{EF4466E7-01FE-420A-AD14-E7A33E275215}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenLapse.Lib", "ScreenLapse.Lib\ScreenLapse.Lib.csproj", "{EF4466E7-01FE-420A-AD14-E7A33E275215}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

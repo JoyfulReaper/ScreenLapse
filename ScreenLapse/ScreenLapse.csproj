@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
@@ -11,13 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ffmpeg.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <PackageReference Include="FFMpegCore" Version="5.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ScreenLapseLib\ScreenLapseLib.csproj" />
+    <ProjectReference Include="..\ScreenLapse.Lib\ScreenLapse.Lib.csproj" />
   </ItemGroup>
 
 </Project>
