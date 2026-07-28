@@ -24,40 +24,39 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace ScreenLapse.Lib.Helpers
+namespace ScreenLapse.Lib.Helpers;
+
+public static class VideoHelper
 {
-    public static class VideoHelper
+    public static bool CreateVideoFromImages(
+        string outputPath,
+        string filename,
+        string inputPath,
+        int frameRepeat = 3,
+        int frameRate = 30)
     {
-        public static bool CreateVideoFromImages(
-            string outputPath,
-            string filename,
-            string inputPath,
-            int frameRepeat = 3,
-            int frameRate = 30)
+        var images = Directory
+            .GetFiles(inputPath, "*-shot.png")
+            .OrderBy(path => path, StringComparer.Ordinal)
+            .SelectMany(path => Enumerable.Repeat(path, frameRepeat))
+            .ToArray();
+
+        if (images.Length == 0)
         {
-            var images = Directory
-                .GetFiles(inputPath, "*-shot.png")
-                .OrderBy(path => path, StringComparer.Ordinal)
-                .SelectMany(path => Enumerable.Repeat(path, frameRepeat))
-                .ToArray();
-
-            if (images.Length == 0)
-            {
-                throw new InvalidOperationException(
-                    $"No screenshots found in '{inputPath}'.");
-            }
-
-            var outputFile = Path.Combine(outputPath, $"{filename}.mp4");
-
-            return FFMpeg.JoinImageSequence(
-                outputFile,
-                frameRate,
-                images);
+            throw new InvalidOperationException(
+                $"No screenshots found in '{inputPath}'.");
         }
 
-        public static void JoinVideos(string path, string outputFile, string inputPath)
-        {
-            var inputVideos = Directory.GetFiles(inputPath);
-        }
+        var outputFile = Path.Combine(outputPath, $"{filename}.mp4");
+
+        return FFMpeg.JoinImageSequence(
+            outputFile,
+            frameRate,
+            images);
+    }
+
+    public static void JoinVideos(string path, string outputFile, string inputPath)
+    {
+        var inputVideos = Directory.GetFiles(inputPath);
     }
 }
