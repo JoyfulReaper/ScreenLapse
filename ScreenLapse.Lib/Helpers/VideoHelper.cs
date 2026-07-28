@@ -20,26 +20,39 @@ SOFTWARE.
 */
 
 using FFMpegCore;
-using System.Collections.Generic;
+using System;
 using System.IO;
+using System.Linq;
 
 namespace ScreenLapseLib.Helpers
 {
     public static class VideoHelper
     {
-        public static bool CreateVideoFromImages(string path, string filename, string inputPath, int frameRepeat = 3, int frameRate = 30)
+        public static bool CreateVideoFromImages(
+            string outputPath,
+            string filename,
+            string inputPath,
+            int frameRepeat = 3,
+            int frameRate = 30)
         {
-            var inputImages = Directory.GetFiles(inputPath, "*png");
-            var imageinfo = new List<ImageInfo>();
+            var images = Directory
+                .GetFiles(inputPath, "*-shot.png")
+                .OrderBy(path => path, StringComparer.Ordinal)
+                .SelectMany(path => Enumerable.Repeat(path, frameRepeat))
+                .ToArray();
 
-            foreach (var image in inputImages)
+            if (images.Length == 0)
             {
-                for (int i = 0; i < frameRepeat; i++)
-                {
-                    imageinfo.Add(ImageInfo.FromPath(image));
-                }
+                throw new InvalidOperationException(
+                    $"No screenshots found in '{inputPath}'.");
             }
-            return FFMpeg.JoinImageSequence($"{path}{Path.DirectorySeparatorChar}{filename}.mp4", frameRate, imageinfo.ToArray());
+
+            var outputFile = Path.Combine(outputPath, $"{filename}.mp4");
+
+            return FFMpeg.JoinImageSequence(
+                outputFile,
+                frameRate,
+                images);
         }
 
         public static void JoinVideos(string path, string outputFile, string inputPath)

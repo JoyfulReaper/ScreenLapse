@@ -7,15 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ffmpeg.exe" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FFMpegCore" Version="5.4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ScreenLapse.Lib\ScreenLapse.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ffmpeg.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ffprobe.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
