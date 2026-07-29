@@ -1,4 +1,4 @@
-﻿namespace ScreenLapse;
+﻿namespace ScreenLapse.Lib;
 
 public class ScreenLapseOptions
 {

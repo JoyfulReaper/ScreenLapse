@@ -25,7 +25,10 @@ namespace ScreenLapse.Lib;
 
 public sealed class CaptureSession
 {
-    public required string DirectoryPath { get; init; }
-    public DateTimeOffset StartedAt { get; init; }
+    public CaptureSession(string directoryPath, DateTimeOffset startedAt, int frameNumber)
+        => (DirectoryPath, StartedAt, FrameNumber) = (directoryPath, startedAt, frameNumber);
+
+    public string DirectoryPath { get; set; }
+    public DateTimeOffset StartedAt { get; set; }
     public int FrameNumber { get; set; }
 }

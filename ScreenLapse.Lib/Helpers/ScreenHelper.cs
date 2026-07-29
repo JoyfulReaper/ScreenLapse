@@ -68,7 +68,8 @@ public static class ScreenHelper
                 Directory.CreateDirectory(path);
             }
 
-            image.Save(path + fileName, imageFormat);
+            var p = Path.Combine(path, fileName);
+            image.Save(p, imageFormat);
         }
     }
 }

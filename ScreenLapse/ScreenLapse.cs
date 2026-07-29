@@ -1,4 +1,5 @@
-﻿using ScreenLapse.Lib.Helpers;
+﻿using ScreenLapse.Lib;
+using ScreenLapse.Lib.Helpers;
 using ScreenLapse.Services;
 using System;
 using System.Drawing;
@@ -23,8 +24,9 @@ namespace ScreenLapse
         {
             InitializeComponent();
 
-            _screenLapseService = new();
             _options = new ScreenLapseOptions();
+            _screenLapseService = new(_options);
+
 
             CheckIfProccessIsAllowedAndUpdate();
 
@@ -44,13 +46,19 @@ namespace ScreenLapse
             btnStop.Enabled = true;
             btnProcess.Enabled = false;
 
-            _started = true;
+            var session = _screenLapseService.StartSession();
 
-            while (_started == true)
+            if (Screen.PrimaryScreen is null)
+            {
+                throw new Exception("Primary Screen is null......");
+            }
+
+            while (true)
             {
                 var bounds = new Rectangle();
                 bounds = Screen.PrimaryScreen.Bounds;
-                ScreenHelper.TakeAndSave(_options.CapturePath, $"{DateTime.Now.Ticks}-shot.png", bounds, ImageFormat.Png);
+                ScreenHelper.TakeAndSave(session.DirectoryPath, $"{DateTime.Now.Ticks}-shot.png", bounds, ImageFormat.Png);
+
                 await Task.Delay((int)(_delay * 1000));
             }
         }

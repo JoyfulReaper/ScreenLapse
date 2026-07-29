@@ -21,21 +21,33 @@ SOFTWARE.
 
 using ScreenLapse.Lib;
 using System;
+using System.IO;
 
 namespace ScreenLapse.Services;
 
 internal class ScreenLapseService
 {
     private CaptureSession? _captureSession = null;
+    private ScreenLapseOptions _options;
 
-    public ScreenLapseService()
+    public ScreenLapseService(ScreenLapseOptions options)
     {
+        _options = options;
     }
 
-    public void StartSession()
+    public CaptureSession StartSession()
     {
-        throw new NotImplementedException();
+        var timeStamps = DateTimeOffset.Now;
+        var path = Path.Combine(_options.CapturePath, timeStamps.ToString("yyyy-MM-dd-HHmmss"));
 
-        //_captureSession = new();
+        if (Directory.Exists(path))
+        {
+            throw new Exception($"Path {path} already exists");
+        }
+
+        Directory.CreateDirectory(path);
+        _captureSession = new CaptureSession(path, timeStamps, 0);
+
+        return _captureSession;
     }
 }
